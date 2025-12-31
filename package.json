@@ -57,7 +57,7 @@
     "@eslint/js": "^9.38.0",
     "@sudobility/components": "^4.0.95",
     "@sudobility/design": "^1.1.15",
-    "@sudobility/ratelimit_client": "^0.0.1",
+    "@sudobility/ratelimit_client": "^0.0.6",
     "@sudobility/ratelimit-components": "^1.0.0",
     "@sudobility/types": "^1.9.37",
     "@testing-library/dom": "^10.4.0",
