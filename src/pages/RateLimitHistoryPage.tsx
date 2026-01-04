@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRateLimits } from "@sudobility/ratelimit_client";
 import {
   UsageHistoryChart,
@@ -78,6 +78,12 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
   const { history, isLoadingHistory, error, refreshHistory, clearError } =
     useRateLimits(networkClient, baseUrl);
 
+  // Store displayed entries to prevent flickering during period switch
+  // This implements a "stale-while-revalidate" pattern
+  const [displayedEntries, setDisplayedEntries] = useState<HistoryEntryData[]>(
+    []
+  );
+
   // Fetch history on mount or when period changes
   useEffect(() => {
     if (autoFetch && token) {
@@ -85,27 +91,22 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
     }
   }, [autoFetch, token, selectedPeriod, refreshHistory]);
 
-  // Cache previous entries to prevent flickering during period switch
-  const previousEntriesRef = useRef<HistoryEntryData[]>([]);
-
-  // Transform history.entries to HistoryEntryData[]
-  const chartEntries: HistoryEntryData[] = useMemo(() => {
-    if (!history?.entries) {
-      // Return previous entries while loading to prevent flicker
-      return previousEntriesRef.current;
+  // Update displayed entries only when new valid data arrives
+  useEffect(() => {
+    if (history?.entries) {
+      const entries = history.entries.map((entry) => ({
+        periodStart: entry.periodStart,
+        periodEnd: entry.periodEnd,
+        requestCount: entry.requestCount,
+        limit: entry.limit,
+      }));
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional stale-while-revalidate pattern
+      setDisplayedEntries(entries);
     }
-
-    const entries = history.entries.map((entry) => ({
-      periodStart: entry.periodStart,
-      periodEnd: entry.periodEnd,
-      requestCount: entry.requestCount,
-      limit: entry.limit,
-    }));
-
-    // Cache the new entries
-    previousEntriesRef.current = entries;
-    return entries;
   }, [history]);
+
+  // Use displayed entries for the chart (keeps previous data visible during loading)
+  const chartEntries = displayedEntries;
 
   // Handle period change
   const handlePeriodChange = useCallback((period: HistoryPeriodType) => {
