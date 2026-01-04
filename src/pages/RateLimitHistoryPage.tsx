@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRateLimits } from "@sudobility/ratelimit_client";
 import {
   UsageHistoryChart,
@@ -85,16 +85,26 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
     }
   }, [autoFetch, token, selectedPeriod, refreshHistory]);
 
+  // Cache previous entries to prevent flickering during period switch
+  const previousEntriesRef = useRef<HistoryEntryData[]>([]);
+
   // Transform history.entries to HistoryEntryData[]
   const chartEntries: HistoryEntryData[] = useMemo(() => {
-    if (!history?.entries) return [];
+    if (!history?.entries) {
+      // Return previous entries while loading to prevent flicker
+      return previousEntriesRef.current;
+    }
 
-    return history.entries.map((entry) => ({
+    const entries = history.entries.map((entry) => ({
       periodStart: entry.periodStart,
       periodEnd: entry.periodEnd,
       requestCount: entry.requestCount,
       limit: entry.limit,
     }));
+
+    // Cache the new entries
+    previousEntriesRef.current = entries;
+    return entries;
   }, [history]);
 
   // Handle period change
@@ -191,29 +201,29 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
         </div>
       </div>
 
-      {/* Loading indicator for tab switch */}
-      {isLoadingHistory && (
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-          <div className="h-4 w-4 animate-spin rounded-full border-2 border-blue-500 border-t-transparent" />
-          {labels.loadingText}
-        </div>
-      )}
-
-      {/* Usage History Chart */}
-      <UsageHistoryChart
-        entries={chartEntries}
-        periodType={chartPeriodType}
-        labels={{
-          title: labels.chartTitle,
-          requestsLabel: labels.requestsLabel,
-          limitLabel: labels.limitLabel,
-          noDataLabel: labels.noDataLabel,
-        }}
-        height={chartHeight}
-        barColor={barColor}
-        limitLineColor={limitLineColor}
-        showLimitLine={showLimitLine}
-      />
+      {/* Usage History Chart with smooth transition */}
+      <div
+        className={cn(
+          "transition-opacity duration-200",
+          isLoadingHistory ? "opacity-50" : "opacity-100"
+        )}
+        style={{ minHeight: chartHeight }}
+      >
+        <UsageHistoryChart
+          entries={chartEntries}
+          periodType={chartPeriodType}
+          labels={{
+            title: labels.chartTitle,
+            requestsLabel: labels.requestsLabel,
+            limitLabel: labels.limitLabel,
+            noDataLabel: labels.noDataLabel,
+          }}
+          height={chartHeight}
+          barColor={barColor}
+          limitLineColor={limitLineColor}
+          showLimitLine={showLimitLine}
+        />
+      </div>
     </div>
   );
 };
