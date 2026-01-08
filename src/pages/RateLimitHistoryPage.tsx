@@ -62,6 +62,7 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
   networkClient,
   baseUrl,
   token,
+  entitySlug,
   labels: customLabels,
   initialPeriodType = "day",
   autoFetch = true,
@@ -87,9 +88,9 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
   // Fetch history on mount or when period changes
   useEffect(() => {
     if (autoFetch && token) {
-      refreshHistory(selectedPeriod, token);
+      refreshHistory(selectedPeriod, token, entitySlug);
     }
-  }, [autoFetch, token, selectedPeriod, refreshHistory]);
+  }, [autoFetch, token, entitySlug, selectedPeriod, refreshHistory]);
 
   // Update displayed entries only when new valid data arrives
   useEffect(() => {
@@ -117,9 +118,9 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
   const handleRetry = useCallback(() => {
     clearError();
     if (token) {
-      refreshHistory(selectedPeriod, token);
+      refreshHistory(selectedPeriod, token, entitySlug);
     }
-  }, [clearError, token, selectedPeriod, refreshHistory]);
+  }, [clearError, token, entitySlug, selectedPeriod, refreshHistory]);
 
   // Get period type for chart
   const chartPeriodType: PeriodType = selectedPeriod;

@@ -38,6 +38,7 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   networkClient,
   baseUrl,
   token,
+  entitySlug,
   labels: customLabels,
   onUpgradeClick,
   upgradeButtonLabel,
@@ -56,19 +57,19 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   // Fetch config on mount if autoFetch is enabled
   useEffect(() => {
     if (autoFetch && token) {
-      refreshConfig(token);
+      refreshConfig(token, entitySlug);
     }
-  }, [autoFetch, token, refreshConfig]);
+  }, [autoFetch, token, entitySlug, refreshConfig]);
 
   // Set up refresh interval
   useEffect(() => {
     if (refreshInterval > 0 && token) {
       const intervalId = setInterval(() => {
-        refreshConfig(token);
+        refreshConfig(token, entitySlug);
       }, refreshInterval);
       return () => clearInterval(intervalId);
     }
-  }, [refreshInterval, token, refreshConfig]);
+  }, [refreshInterval, token, entitySlug, refreshConfig]);
 
   // Transform config to UsageBarConfig[]
   const usageBars: UsageBarConfig[] = useMemo(() => {
@@ -120,9 +121,9 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   const handleRetry = useCallback(() => {
     clearError();
     if (token) {
-      refreshConfig(token);
+      refreshConfig(token, entitySlug);
     }
-  }, [clearError, token, refreshConfig]);
+  }, [clearError, token, entitySlug, refreshConfig]);
 
   // Loading state
   if (isLoadingConfig && !config) {

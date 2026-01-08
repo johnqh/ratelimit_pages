@@ -61,6 +61,8 @@ export interface RateLimitsPageProps {
   baseUrl: string;
   /** Firebase ID token for authentication */
   token: FirebaseIdToken;
+  /** Entity slug for rate limit lookup. If not provided, uses user's personal entity. */
+  entitySlug?: string;
   /** Labels for localization */
   labels?: RateLimitsPageLabels;
   /** Callback when upgrade is clicked (shows upgrade button if provided) */
@@ -122,6 +124,8 @@ export interface RateLimitHistoryPageProps {
   baseUrl: string;
   /** Firebase ID token for authentication */
   token: FirebaseIdToken;
+  /** Entity slug for rate limit lookup. If not provided, uses user's personal entity. */
+  entitySlug?: string;
   /** Labels for localization */
   labels?: RateLimitHistoryPageLabels;
   /** Initial period type selection */
