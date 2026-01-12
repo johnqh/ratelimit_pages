@@ -88,7 +88,7 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
   // Fetch history on mount or when period changes
   useEffect(() => {
     if (autoFetch && token) {
-      refreshHistory(selectedPeriod, token, entitySlug);
+      refreshHistory(selectedPeriod, token, entitySlug ?? "");
     }
   }, [autoFetch, token, entitySlug, selectedPeriod, refreshHistory]);
 
@@ -118,7 +118,7 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
   const handleRetry = useCallback(() => {
     clearError();
     if (token) {
-      refreshHistory(selectedPeriod, token, entitySlug);
+      refreshHistory(selectedPeriod, token, entitySlug ?? "");
     }
   }, [clearError, token, entitySlug, selectedPeriod, refreshHistory]);
 

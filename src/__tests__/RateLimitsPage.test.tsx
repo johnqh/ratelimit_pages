@@ -195,7 +195,7 @@ describe("RateLimitsPage", () => {
         />
       );
 
-      expect(mockRefreshConfig).toHaveBeenCalledWith("test-token", undefined);
+      expect(mockRefreshConfig).toHaveBeenCalledWith("test-token", "");
     });
 
     it("should not call refreshConfig when autoFetch is false", () => {
@@ -275,7 +275,7 @@ describe("RateLimitsPage", () => {
       fireEvent.click(screen.getByText("Retry"));
 
       expect(mockClearError).toHaveBeenCalled();
-      expect(mockRefreshConfig).toHaveBeenCalledWith("test-token", undefined);
+      expect(mockRefreshConfig).toHaveBeenCalledWith("test-token", "");
     });
   });
 

@@ -57,7 +57,7 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   // Fetch config on mount if autoFetch is enabled
   useEffect(() => {
     if (autoFetch && token) {
-      refreshConfig(token, entitySlug);
+      refreshConfig(token, entitySlug ?? "");
     }
   }, [autoFetch, token, entitySlug, refreshConfig]);
 
@@ -65,7 +65,7 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   useEffect(() => {
     if (refreshInterval > 0 && token) {
       const intervalId = setInterval(() => {
-        refreshConfig(token, entitySlug);
+        refreshConfig(token, entitySlug ?? "");
       }, refreshInterval);
       return () => clearInterval(intervalId);
     }
@@ -121,7 +121,7 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   const handleRetry = useCallback(() => {
     clearError();
     if (token) {
-      refreshConfig(token, entitySlug);
+      refreshConfig(token, entitySlug ?? "");
     }
   }, [clearError, token, entitySlug, refreshConfig]);
 
