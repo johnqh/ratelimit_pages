@@ -16,6 +16,13 @@ vi.mock("@sudobility/ratelimit_client", () => ({
   })),
 }));
 
+// Mock @sudobility/components to avoid CJS interop issues with react-helmet-async
+vi.mock("@sudobility/components", () => ({
+  Section: vi.fn(({ children, className }) => (
+    <section className={className}>{children}</section>
+  )),
+}));
+
 // Mock the child components
 vi.mock("@sudobility/ratelimit-components", () => ({
   UsageDashboard: vi.fn(({ usageBars, currentTierName }) => (

@@ -1,6 +1,6 @@
 {
   "name": "@sudobility/ratelimit_pages",
-  "version": "1.0.38",
+  "version": "1.0.39",
   "description": "Self-contained rate limit pages for React applications",
   "type": "module",
   "main": "dist/index.umd.js",
@@ -79,6 +79,7 @@
     "prettier": "^3.6.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-helmet-async": "^2.0.5",
     "tailwind-merge": "^3.3.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.32.1",

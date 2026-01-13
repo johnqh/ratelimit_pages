@@ -1,4 +1,13 @@
+/**
+ * @fileoverview Rate Limits Page
+ * @description Page for displaying rate limit usage and tier comparison.
+ *
+ * This component uses Section internally for proper page layout.
+ * Do NOT wrap this component in a Section when consuming it.
+ */
+
 import React, { useCallback, useEffect, useMemo } from "react";
+import { Section } from "@sudobility/components";
 import { useRateLimits } from "@sudobility/ratelimit_client";
 import {
   UsageDashboard,
@@ -128,41 +137,35 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   // Loading state
   if (isLoadingConfig && !config) {
     return (
-      <div
-        className={cn(
-          "flex items-center justify-center rounded-lg border border-gray-200 bg-white p-12 dark:border-gray-700 dark:bg-gray-800",
-          className,
-        )}
-      >
-        <div className="flex flex-col items-center gap-3">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {labels.loadingText}
-          </p>
+      <Section spacing="lg" maxWidth="4xl" className={cn(className)}>
+        <div className="flex items-center justify-center rounded-lg border border-gray-200 bg-white p-12 dark:border-gray-700 dark:bg-gray-800">
+          <div className="flex flex-col items-center gap-3">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {labels.loadingText}
+            </p>
+          </div>
         </div>
-      </div>
+      </Section>
     );
   }
 
   // Error state
   if (error && !config) {
     return (
-      <div
-        className={cn(
-          "flex flex-col items-center justify-center gap-4 rounded-lg border border-red-200 bg-red-50 p-12 dark:border-red-900/50 dark:bg-red-900/10",
-          className,
-        )}
-      >
-        <p className="text-sm text-red-600 dark:text-red-400">
-          {labels.errorText}: {error}
-        </p>
-        <button
-          onClick={handleRetry}
-          className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
-        >
-          {labels.retryText}
-        </button>
-      </div>
+      <Section spacing="lg" maxWidth="4xl" className={cn(className)}>
+        <div className="flex flex-col items-center justify-center gap-4 rounded-lg border border-red-200 bg-red-50 p-12 dark:border-red-900/50 dark:bg-red-900/10">
+          <p className="text-sm text-red-600 dark:text-red-400">
+            {labels.errorText}: {error}
+          </p>
+          <button
+            onClick={handleRetry}
+            className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
+          >
+            {labels.retryText}
+          </button>
+        </div>
+      </Section>
     );
   }
 
@@ -172,15 +175,15 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   }
 
   return (
-    <div className={cn("space-y-6", className)}>
+    <Section spacing="lg" maxWidth="4xl" className={cn(className)}>
       {/* Page Title */}
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
         {labels.title}
       </h2>
 
       {/* Error banner (if error but we have stale data) */}
       {error && (
-        <div className="rounded-md bg-yellow-50 p-4 dark:bg-yellow-900/20">
+        <div className="rounded-md bg-yellow-50 p-4 dark:bg-yellow-900/20 mb-6">
           <p className="text-sm text-yellow-800 dark:text-yellow-200">
             {labels.errorText}: {error}
           </p>
@@ -188,19 +191,21 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
       )}
 
       {/* Usage Dashboard */}
-      <UsageDashboard
-        usageBars={usageBars}
-        currentTierName={currentTierName}
-        labels={{
-          title: labels.usageTitle,
-          usedLabel: labels.usedLabel,
-          limitLabel: labels.limitLabel,
-          unlimitedLabel: labels.unlimitedLabel,
-          remainingLabel: labels.remainingLabel,
-        }}
-        onUpgradeClick={onUpgradeClick}
-        upgradeButtonLabel={upgradeButtonLabel}
-      />
+      <div className="mb-6">
+        <UsageDashboard
+          usageBars={usageBars}
+          currentTierName={currentTierName}
+          labels={{
+            title: labels.usageTitle,
+            usedLabel: labels.usedLabel,
+            limitLabel: labels.limitLabel,
+            unlimitedLabel: labels.unlimitedLabel,
+            remainingLabel: labels.remainingLabel,
+          }}
+          onUpgradeClick={onUpgradeClick}
+          upgradeButtonLabel={upgradeButtonLabel}
+        />
+      </div>
 
       {/* Tier Comparison Table */}
       <TierComparisonTable
@@ -214,7 +219,7 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
           currentTierBadge: labels.currentTierBadge,
         }}
       />
-    </div>
+    </Section>
   );
 };
 
