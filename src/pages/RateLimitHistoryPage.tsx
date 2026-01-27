@@ -17,27 +17,8 @@ import {
 import { cn } from "../lib/cn";
 import type {
   RateLimitHistoryPageProps,
-  RateLimitHistoryPageLabels,
   HistoryPeriodType,
 } from "../types";
-
-// =============================================================================
-// Default Labels
-// =============================================================================
-
-const defaultLabels: Required<RateLimitHistoryPageLabels> = {
-  title: "Usage History",
-  loadingText: "Loading history...",
-  errorText: "Failed to load history",
-  retryText: "Retry",
-  chartTitle: "",
-  requestsLabel: "Requests",
-  limitLabel: "Limit",
-  noDataLabel: "No usage data available for this period",
-  hourlyTab: "Hourly",
-  dailyTab: "Daily",
-  monthlyTab: "Monthly",
-};
 
 // =============================================================================
 // Period Tab Component
@@ -72,7 +53,7 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
   baseUrl,
   token,
   entitySlug,
-  labels: customLabels,
+  labels,
   initialPeriodType = "day",
   autoFetch = true,
   chartHeight = 300,
@@ -80,13 +61,13 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
   barColor,
   limitLineColor,
   showLimitLine = true,
+  testMode = false,
 }) => {
-  const labels = { ...defaultLabels, ...customLabels };
   const [selectedPeriod, setSelectedPeriod] =
     useState<HistoryPeriodType>(initialPeriodType);
 
   const { history, isLoadingHistory, error, refreshHistory, clearError } =
-    useRateLimits(networkClient, baseUrl);
+    useRateLimits(networkClient, baseUrl, testMode);
 
   // Store displayed entries to prevent flickering during period switch
   // This implements a "stale-while-revalidate" pattern

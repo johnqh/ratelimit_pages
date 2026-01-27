@@ -73,6 +73,23 @@ const mockConfig = {
   ],
 };
 
+const testLabels = {
+  title: "Rate Limits",
+  loadingText: "Loading rate limits...",
+  errorText: "Failed to load rate limits",
+  retryText: "Retry",
+  usageTitle: "Current Usage",
+  tiersTitle: "Plan Comparison",
+  usedLabel: "used",
+  limitLabel: "limit",
+  unlimitedLabel: "Unlimited",
+  remainingLabel: "remaining",
+  hourlyLabel: "Hourly",
+  dailyLabel: "Daily",
+  monthlyLabel: "Monthly",
+  currentTierBadge: "Current",
+};
+
 describe("RateLimitsPage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -97,6 +114,7 @@ describe("RateLimitsPage", () => {
           networkClient={mockNetworkClient}
           baseUrl="https://api.example.com"
           token="test-token"
+          labels={testLabels}
         />
       );
 
@@ -121,6 +139,7 @@ describe("RateLimitsPage", () => {
           networkClient={mockNetworkClient}
           baseUrl="https://api.example.com"
           token="test-token"
+          labels={testLabels}
         />
       );
 
@@ -146,6 +165,7 @@ describe("RateLimitsPage", () => {
           networkClient={mockNetworkClient}
           baseUrl="https://api.example.com"
           token="test-token"
+          labels={testLabels}
         />
       );
 
@@ -170,6 +190,7 @@ describe("RateLimitsPage", () => {
           networkClient={mockNetworkClient}
           baseUrl="https://api.example.com"
           token="test-token"
+          labels={testLabels}
         />
       );
 
@@ -276,6 +297,7 @@ describe("RateLimitsPage", () => {
           baseUrl="https://api.example.com"
           token="test-token"
           autoFetch={false}
+          labels={testLabels}
         />
       );
 
@@ -305,7 +327,7 @@ describe("RateLimitsPage", () => {
           networkClient={mockNetworkClient}
           baseUrl="https://api.example.com"
           token="test-token"
-          labels={{ loadingText: "Custom loading..." }}
+          labels={{ ...testLabels, loadingText: "Custom loading..." }}
         />
       );
 
@@ -332,6 +354,7 @@ describe("RateLimitsPage", () => {
           networkClient={mockNetworkClient}
           baseUrl="https://api.example.com"
           token="test-token"
+          labels={testLabels}
         />
       );
 
@@ -357,6 +380,7 @@ describe("RateLimitsPage", () => {
           networkClient={mockNetworkClient}
           baseUrl="https://api.example.com"
           token="test-token"
+          labels={testLabels}
         />
       );
 
@@ -381,6 +405,7 @@ describe("RateLimitsPage", () => {
           networkClient={mockNetworkClient}
           baseUrl="https://api.example.com"
           token="test-token"
+          labels={testLabels}
         />
       );
 
@@ -407,6 +432,7 @@ describe("RateLimitsPage", () => {
           networkClient={mockNetworkClient}
           baseUrl="https://api.example.com"
           token="test-token"
+          labels={testLabels}
         />
       );
 
@@ -436,6 +462,7 @@ describe("RateLimitsPage", () => {
           baseUrl="https://api.example.com"
           token="test-token"
           className="custom-class"
+          labels={testLabels}
         />
       );
 

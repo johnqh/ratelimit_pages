@@ -1,6 +1,7 @@
 // Pages
 export { RateLimitsPage } from "./pages/RateLimitsPage";
 export { RateLimitHistoryPage } from "./pages/RateLimitHistoryPage";
+export { RateLimitsDashboard } from "./pages/RateLimitsDashboard";
 
 // Types
 export type {
@@ -10,6 +11,9 @@ export type {
   HistoryPeriodType,
   RateLimitHistoryPageLabels,
   RateLimitHistoryPageProps,
+  RateLimitsDashboardTab,
+  RateLimitsDashboardLabels,
+  RateLimitsDashboardProps,
 } from "./types";
 
 // Utilities

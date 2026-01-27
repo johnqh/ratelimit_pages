@@ -16,28 +16,7 @@ import {
   type TierDisplayData,
 } from "@sudobility/ratelimit-components";
 import { cn } from "../lib/cn";
-import type { RateLimitsPageProps, RateLimitsPageLabels } from "../types";
-
-// =============================================================================
-// Default Labels
-// =============================================================================
-
-const defaultLabels: Required<RateLimitsPageLabels> = {
-  title: "Rate Limits",
-  loadingText: "Loading rate limits...",
-  errorText: "Failed to load rate limits",
-  retryText: "Retry",
-  usageTitle: "Current Usage",
-  tiersTitle: "Plan Comparison",
-  usedLabel: "used",
-  limitLabel: "limit",
-  unlimitedLabel: "Unlimited",
-  remainingLabel: "remaining",
-  hourlyLabel: "Hourly",
-  dailyLabel: "Daily",
-  monthlyLabel: "Monthly",
-  currentTierBadge: "Current",
-};
+import type { RateLimitsPageProps } from "../types";
 
 // =============================================================================
 // RateLimitsPage Component
@@ -48,20 +27,17 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   baseUrl,
   token,
   entitySlug,
-  labels: customLabels,
+  labels,
   onUpgradeClick,
   upgradeButtonLabel,
   autoFetch = true,
   refreshInterval = 0,
   className,
+  testMode = false,
 }) => {
-  const labels = useMemo(
-    () => ({ ...defaultLabels, ...customLabels }),
-    [customLabels],
-  );
 
   const { config, isLoadingConfig, error, refreshConfig, clearError } =
-    useRateLimits(networkClient, baseUrl);
+    useRateLimits(networkClient, baseUrl, testMode);
 
   // Fetch config on mount if autoFetch is enabled
   useEffect(() => {

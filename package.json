@@ -1,6 +1,6 @@
 {
   "name": "@sudobility/ratelimit_pages",
-  "version": "1.0.58",
+  "version": "1.0.60",
   "description": "Self-contained rate limit pages for React applications",
   "type": "module",
   "main": "dist/index.umd.js",
@@ -58,7 +58,7 @@
     "@eslint/js": "^9.38.0",
     "@sudobility/components": "^5.0.1",
     "@sudobility/design": "^1.1.18",
-    "@sudobility/ratelimit_client": "^0.0.28",
+    "@sudobility/ratelimit_client": "^0.0.30",
     "@sudobility/ratelimit-components": "^1.0.7",
     "@sudobility/types": "^1.9.48",
     "@testing-library/dom": "^10.4.0",
