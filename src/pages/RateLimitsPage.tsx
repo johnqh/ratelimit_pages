@@ -65,16 +65,19 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
         label: labels.hourlyLabel,
         used: config.currentUsage.hourly,
         limit: config.currentLimits.hourly,
+        resetsAt: config.resets?.hourly,
       },
       {
         label: labels.dailyLabel,
         used: config.currentUsage.daily,
         limit: config.currentLimits.daily,
+        resetsAt: config.resets?.daily,
       },
       {
         label: labels.monthlyLabel,
         used: config.currentUsage.monthly,
         limit: config.currentLimits.monthly,
+        resetsAt: config.resets?.monthly,
       },
     ];
   }, [config, labels]);
