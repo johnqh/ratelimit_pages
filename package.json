@@ -1,6 +1,6 @@
 {
   "name": "@sudobility/ratelimit_pages",
-  "version": "1.0.65",
+  "version": "1.0.66",
   "description": "Self-contained rate limit pages for React applications",
   "type": "module",
   "main": "dist/index.umd.js",
@@ -38,11 +38,11 @@
     "typescript"
   ],
   "author": "John Q Huang",
-  "license": "MIT",
+  "license": "BUSL-1.1",
   "peerDependencies": {
-    "@sudobility/components": "^5.0.5",
+    "@sudobility/components": "^5.0.7",
     "@sudobility/design": "^1.1.18",
-    "@sudobility/types": "^1.9.49",
+    "@sudobility/types": "^1.9.50",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0"
   },
@@ -56,11 +56,11 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.38.0",
-    "@sudobility/components": "^5.0.5",
+    "@sudobility/components": "^5.0.7",
     "@sudobility/design": "^1.1.18",
-    "@sudobility/ratelimit_client": "^0.0.34",
+    "@sudobility/ratelimit_client": "^0.0.35",
     "@sudobility/ratelimit-components": "^1.0.7",
-    "@sudobility/types": "^1.9.49",
+    "@sudobility/types": "^1.9.50",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^16.0.0",
