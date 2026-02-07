@@ -8,6 +8,7 @@ Self-contained rate limit pages for React applications with usage dashboards and
 
 - **Language**: TypeScript
 - **Runtime**: Bun
+- **Package Manager**: Bun (do not use npm/yarn/pnpm for installing dependencies)
 - **Build**: Vite (library mode, ESM + UMD)
 - **Test**: Vitest
 - **UI**: Requires @sudobility/ratelimit-components
