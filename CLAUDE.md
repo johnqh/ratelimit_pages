@@ -132,3 +132,53 @@ Test patterns:
 - Test rendering states (loading, error, success)
 - Test auto-fetch behavior
 - Test retry functionality
+
+## Workspace Context
+
+This project is part of the **ShapeShyft** multi-project workspace at the parent directory. See `../CLAUDE.md` for the full architecture, dependency graph, and build order.
+
+## Downstream Impact
+
+| Downstream Consumer | Relationship |
+|---------------------|-------------|
+| `shapeshyft_app` | Direct dependency - renders rate limit dashboard pages |
+
+After making changes:
+1. Run checks (no `verify` script - see below)
+2. `npm publish`
+3. In `shapeshyft_app`: `bun update @sudobility/ratelimit_pages` -> rebuild
+
+## Local Dev Workflow
+
+```bash
+# In this project:
+bun link
+
+# In shapeshyft_app:
+bun link @sudobility/ratelimit_pages
+
+# If also changing ratelimit_client, link it first:
+cd ../ratelimit_client && bun link
+cd ../ratelimit_pages && bun link @sudobility/ratelimit_client
+
+# Rebuild after changes:
+bun run build
+
+# When done, unlink:
+bun unlink @sudobility/ratelimit_pages && bun install
+```
+
+## Pre-Commit Checklist
+
+No `verify` script. Run checks manually:
+
+```bash
+bun run type-check && bun run lint && bun run test && bun run build
+```
+
+## Gotchas
+
+- **Typecheck command is `type-check` (hyphenated)** -- differs from most other workspace projects which use `typecheck`. Running `bun run typecheck` will silently do nothing.
+- **Vite library mode build** -- produces ESM + UMD. Build is `tsc && vite build`.
+- **`ratelimit_client` is in `peerDependenciesMeta`** -- it's required but listed in the meta section, not main `peerDependencies`. Check both when debugging dependency issues.
+- **UI components come from `@sudobility/ratelimit-components`** (note the hyphen) -- separate package from this one.
