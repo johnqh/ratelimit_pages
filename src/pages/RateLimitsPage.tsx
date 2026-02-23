@@ -117,9 +117,13 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   if (isLoadingConfig && !config) {
     return (
       <Section spacing="lg" maxWidth="4xl" className={cn(className)}>
-        <div className="flex items-center justify-center rounded-lg border border-gray-200 bg-white p-12 dark:border-gray-700 dark:bg-gray-800">
+        <div
+          role="status"
+          aria-label={labels.loadingText}
+          className="flex items-center justify-center rounded-lg border border-gray-200 bg-white p-12 dark:border-gray-700 dark:bg-gray-800"
+        >
           <div className="flex flex-col items-center gap-3">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" aria-hidden="true" />
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {labels.loadingText}
             </p>
@@ -133,12 +137,16 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   if (error && !config) {
     return (
       <Section spacing="lg" maxWidth="4xl" className={cn(className)}>
-        <div className="flex flex-col items-center justify-center gap-4 rounded-lg border border-red-200 bg-red-50 p-12 dark:border-red-900/50 dark:bg-red-900/10">
+        <div
+          role="alert"
+          className="flex flex-col items-center justify-center gap-4 rounded-lg border border-red-200 bg-red-50 p-12 dark:border-red-900/50 dark:bg-red-900/10"
+        >
           <p className="text-sm text-red-600 dark:text-red-400">
             {labels.errorText}: {error}
           </p>
           <button
             onClick={handleRetry}
+            aria-label={labels.retryText}
             className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
           >
             {labels.retryText}
@@ -162,7 +170,7 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
 
       {/* Error banner (if error but we have stale data) */}
       {error && (
-        <div className="rounded-md bg-yellow-50 p-4 dark:bg-yellow-900/20 mb-6">
+        <div role="alert" className="rounded-md bg-yellow-50 p-4 dark:bg-yellow-900/20 mb-6">
           <p className="text-sm text-yellow-800 dark:text-yellow-200">
             {labels.errorText}: {error}
           </p>
@@ -170,7 +178,7 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
       )}
 
       {/* Usage Dashboard */}
-      <div className="mb-6">
+      <div className="mb-6" role="region" aria-label={labels.usageTitle}>
         <UsageDashboard
           usageBars={usageBars}
           currentTierName={currentTierName}
@@ -187,17 +195,19 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
       </div>
 
       {/* Tier Comparison Table */}
-      <TierComparisonTable
-        tiers={tiers}
-        labels={{
-          title: labels.tiersTitle,
-          hourlyHeader: labels.hourlyLabel,
-          dailyHeader: labels.dailyLabel,
-          monthlyHeader: labels.monthlyLabel,
-          unlimitedLabel: labels.unlimitedLabel,
-          currentTierBadge: labels.currentTierBadge,
-        }}
-      />
+      <div role="region" aria-label={labels.tiersTitle}>
+        <TierComparisonTable
+          tiers={tiers}
+          labels={{
+            title: labels.tiersTitle,
+            hourlyHeader: labels.hourlyLabel,
+            dailyHeader: labels.dailyLabel,
+            monthlyHeader: labels.monthlyLabel,
+            unlimitedLabel: labels.unlimitedLabel,
+            currentTierBadge: labels.currentTierBadge,
+          }}
+        />
+      </div>
     </Section>
   );
 };

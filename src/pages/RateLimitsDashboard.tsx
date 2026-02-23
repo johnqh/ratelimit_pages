@@ -27,6 +27,8 @@ interface TabButtonProps {
 
 const TabButton: React.FC<TabButtonProps> = ({ label, isActive, onClick }) => (
   <button
+    role="tab"
+    aria-selected={isActive}
     onClick={onClick}
     className={cn(
       "py-3 text-sm font-medium transition-colors",
@@ -62,7 +64,7 @@ export const RateLimitsDashboard: React.FC<RateLimitsDashboardProps> = ({
     <div className={cn("space-y-6", className)}>
       {/* Tab Navigation */}
       <div className="border-b border-gray-200 dark:border-gray-700">
-        <nav className="-mb-px flex gap-6">
+        <nav role="tablist" aria-label="Rate limits dashboard" className="-mb-px flex gap-6">
           <TabButton
             label={labels.currentLimitsTab}
             isActive={activeTab === "limits"}

@@ -32,6 +32,8 @@ interface PeriodTabProps {
 
 const PeriodTab: React.FC<PeriodTabProps> = ({ label, isActive, onClick }) => (
   <button
+    role="tab"
+    aria-selected={isActive}
     onClick={onClick}
     className={cn(
       "px-4 py-2 text-sm font-medium transition-colors",
@@ -119,9 +121,13 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
   if (isLoadingHistory && !history) {
     return (
       <Section spacing="lg" maxWidth="4xl" className={cn(className)}>
-        <div className="flex items-center justify-center rounded-lg border border-gray-200 bg-white p-12 dark:border-gray-700 dark:bg-gray-800">
+        <div
+          role="status"
+          aria-label={labels.loadingText}
+          className="flex items-center justify-center rounded-lg border border-gray-200 bg-white p-12 dark:border-gray-700 dark:bg-gray-800"
+        >
           <div className="flex flex-col items-center gap-3">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" />
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" aria-hidden="true" />
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {labels.loadingText}
             </p>
@@ -135,12 +141,16 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
   if (error && !history) {
     return (
       <Section spacing="lg" maxWidth="4xl" className={cn(className)}>
-        <div className="flex flex-col items-center justify-center gap-4 rounded-lg border border-red-200 bg-red-50 p-12 dark:border-red-900/50 dark:bg-red-900/10">
+        <div
+          role="alert"
+          className="flex flex-col items-center justify-center gap-4 rounded-lg border border-red-200 bg-red-50 p-12 dark:border-red-900/50 dark:bg-red-900/10"
+        >
           <p className="text-sm text-red-600 dark:text-red-400">
             {labels.errorText}: {error}
           </p>
           <button
             onClick={handleRetry}
+            aria-label={labels.retryText}
             className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
           >
             {labels.retryText}
@@ -159,7 +169,7 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
 
       {/* Error banner (if error but we have stale data) */}
       {error && (
-        <div className="rounded-md bg-yellow-50 p-4 dark:bg-yellow-900/20 mb-6">
+        <div role="alert" className="rounded-md bg-yellow-50 p-4 dark:bg-yellow-900/20 mb-6">
           <p className="text-sm text-yellow-800 dark:text-yellow-200">
             {labels.errorText}: {error}
           </p>
@@ -168,7 +178,7 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
 
       {/* Period Tabs */}
       <div className="border-b border-gray-200 dark:border-gray-700 mb-6">
-        <div className="flex gap-4">
+        <div role="tablist" aria-label={labels.title} className="flex gap-4">
           <PeriodTab
             label={labels.hourlyTab}
             isActive={selectedPeriod === "hour"}
@@ -189,6 +199,8 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
 
       {/* Usage History Chart with smooth transition */}
       <div
+        role="tabpanel"
+        aria-label={labels.chartTitle}
         className={cn(
           "transition-opacity duration-200",
           isLoadingHistory ? "opacity-50" : "opacity-100"
