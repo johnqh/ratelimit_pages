@@ -117,22 +117,6 @@ shapeshyft_app (consumes pages)
 sudojo_app (consumes pages)
 ```
 
-## Testing
-
-Uses Vitest with React Testing Library:
-
-```bash
-bun run test         # Single run
-bun run test:watch   # Watch mode
-```
-
-Test patterns:
-- Mock useRateLimits hook
-- Mock child components
-- Test rendering states (loading, error, success)
-- Test auto-fetch behavior
-- Test retry functionality
-
 ## Workspace Context
 
 This project is part of the **ShapeShyft** multi-project workspace at the parent directory. See `../CLAUDE.md` for the full architecture, dependency graph, and build order.
