@@ -1,16 +1,14 @@
 {
   "name": "@sudobility/ratelimit_pages",
-  "version": "1.0.83",
+  "version": "1.0.84",
   "description": "Self-contained rate limit pages for React applications",
   "type": "module",
-  "main": "dist/index.umd.js",
-  "module": "dist/index.esm.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.umd.js"
+      "import": "./dist/index.js"
     }
   },
   "files": [
@@ -40,9 +38,9 @@
   "author": "John Q Huang",
   "license": "BUSL-1.1",
   "peerDependencies": {
-    "@sudobility/components": "^5.0.18",
-    "@sudobility/design": "^1.1.21",
-    "@sudobility/types": "^1.9.55",
+    "@sudobility/components": "^5.0.20",
+    "@sudobility/design": "^1.1.22",
+    "@sudobility/types": "^1.9.57",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0"
   },
@@ -56,11 +54,11 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.38.0",
-    "@sudobility/components": "^5.0.18",
-    "@sudobility/design": "^1.1.21",
-    "@sudobility/ratelimit_client": "^0.0.46",
+    "@sudobility/components": "^5.0.20",
+    "@sudobility/design": "^1.1.22",
+    "@sudobility/ratelimit_client": "^0.0.47",
     "@sudobility/ratelimit-components": "^1.0.8",
-    "@sudobility/types": "^1.9.55",
+    "@sudobility/types": "^1.9.57",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^16.0.0",

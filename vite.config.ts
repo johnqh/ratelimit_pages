@@ -13,9 +13,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'RatelimitPages',
-      formats: ['es', 'umd'],
-      fileName: (format) => `index.${format === 'es' ? 'esm' : format}.js`,
+      formats: ['es'],
+      fileName: () => `index.js`,
     },
     rollupOptions: {
       external: [
@@ -29,16 +28,7 @@ export default defineConfig({
         '@sudobility/types',
       ],
       output: {
-        globals: {
-          react: 'React',
-          'react-dom': 'ReactDOM',
-          'react/jsx-runtime': 'jsxRuntime',
-          '@sudobility/components': 'SudobilityComponents',
-          '@sudobility/design': 'SudobilityDesign',
-          '@sudobility/ratelimit_client': 'SudobilityRatelimitClient',
-          '@sudobility/ratelimit-components': 'SudobilityRatelimitComponents',
-          '@sudobility/types': 'SudobilityTypes',
-        },
+        exports: 'named',
       },
     },
   },
