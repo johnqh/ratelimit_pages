@@ -7,6 +7,7 @@
  */
 
 import React, { useState } from "react";
+import { colors } from "@sudobility/design";
 import { cn } from "../lib/cn";
 import { RateLimitsPage } from "./RateLimitsPage";
 import { RateLimitHistoryPage } from "./RateLimitHistoryPage";
@@ -33,7 +34,7 @@ const TabButton: React.FC<TabButtonProps> = ({ label, isActive, onClick }) => (
     className={cn(
       "py-3 text-sm font-medium transition-colors",
       isActive
-        ? "border-b-2 border-blue-500 text-blue-600 dark:text-blue-400"
+        ? `border-b-2 ${colors.component.alert.info.icon}`
         : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
     )}
   >

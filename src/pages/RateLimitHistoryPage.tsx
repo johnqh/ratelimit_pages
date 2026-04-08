@@ -14,6 +14,7 @@ import {
   type HistoryEntryData,
   type PeriodType,
 } from "@sudobility/ratelimit-components";
+import { colors } from "@sudobility/design";
 import { cn } from "../lib/cn";
 import type {
   RateLimitHistoryPageProps,
@@ -38,7 +39,7 @@ const PeriodTab: React.FC<PeriodTabProps> = ({ label, isActive, onClick }) => (
     className={cn(
       "px-4 py-2 text-sm font-medium transition-colors",
       isActive
-        ? "border-b-2 border-blue-500 text-blue-600 dark:text-blue-400"
+        ? `border-b-2 ${colors.component.alert.info.icon}`
         : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300",
     )}
   >
@@ -124,10 +125,10 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
         <div
           role="status"
           aria-label={labels.loadingText}
-          className="flex items-center justify-center rounded-lg border border-gray-200 bg-white p-12 dark:border-gray-700 dark:bg-gray-800"
+          className={`flex items-center justify-center rounded-lg border p-12 ${colors.component.card.default.base} ${colors.component.card.default.dark}`}
         >
           <div className="flex flex-col items-center gap-3">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-500 border-t-transparent" aria-hidden="true" />
+            <div className={`h-8 w-8 animate-spin rounded-full border-4 border-current border-t-transparent ${colors.component.alert.info.icon}`} aria-hidden="true" />
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {labels.loadingText}
             </p>
@@ -143,15 +144,15 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
       <Section spacing="lg" maxWidth="4xl" className={cn(className)}>
         <div
           role="alert"
-          className="flex flex-col items-center justify-center gap-4 rounded-lg border border-red-200 bg-red-50 p-12 dark:border-red-900/50 dark:bg-red-900/10"
+          className={`flex flex-col items-center justify-center gap-4 rounded-lg border p-12 ${colors.component.alert.error.base} ${colors.component.alert.error.dark}`}
         >
-          <p className="text-sm text-red-600 dark:text-red-400">
+          <p className={`text-sm ${colors.component.alert.error.icon}`}>
             {labels.errorText}: {error}
           </p>
           <button
             onClick={handleRetry}
             aria-label={labels.retryText}
-            className="rounded-md bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
+            className={`rounded-md px-4 py-2 text-sm font-medium transition-colors ${colors.component.button.destructive.base} ${colors.component.button.destructive.dark}`}
           >
             {labels.retryText}
           </button>
