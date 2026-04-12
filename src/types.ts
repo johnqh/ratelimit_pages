@@ -2,7 +2,7 @@
  * Types for ratelimit-pages
  */
 
-import type { NetworkClient } from "@sudobility/types";
+import { RateLimitPeriodType, type NetworkClient } from "@sudobility/types";
 
 // =============================================================================
 // Common Types
@@ -86,7 +86,7 @@ export interface RateLimitsPageProps {
 /**
  * Period type for history display
  */
-export type HistoryPeriodType = "hour" | "day" | "month";
+export type HistoryPeriodType = RateLimitPeriodType;
 
 /**
  * Labels for RateLimitHistoryPage localization

@@ -14,6 +14,7 @@ import {
   type HistoryEntryData,
   type PeriodType,
 } from "@sudobility/ratelimit-components";
+import { RateLimitPeriodType } from "@sudobility/types";
 import { colors } from "@sudobility/design";
 import { cn } from "../lib/cn";
 import type {
@@ -57,7 +58,7 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
   token,
   entitySlug,
   labels,
-  initialPeriodType = "day",
+  initialPeriodType = RateLimitPeriodType.DAY,
   autoFetch = true,
   chartHeight = 300,
   className,
@@ -182,18 +183,18 @@ export const RateLimitHistoryPage: React.FC<RateLimitHistoryPageProps> = ({
         <div role="tablist" aria-label={labels.title} className="flex gap-4">
           <PeriodTab
             label={labels.hourlyTab}
-            isActive={selectedPeriod === "hour"}
-            onClick={() => handlePeriodChange("hour")}
+            isActive={selectedPeriod === RateLimitPeriodType.HOUR}
+            onClick={() => handlePeriodChange(RateLimitPeriodType.HOUR)}
           />
           <PeriodTab
             label={labels.dailyTab}
-            isActive={selectedPeriod === "day"}
-            onClick={() => handlePeriodChange("day")}
+            isActive={selectedPeriod === RateLimitPeriodType.DAY}
+            onClick={() => handlePeriodChange(RateLimitPeriodType.DAY)}
           />
           <PeriodTab
             label={labels.monthlyTab}
-            isActive={selectedPeriod === "month"}
-            onClick={() => handlePeriodChange("month")}
+            isActive={selectedPeriod === RateLimitPeriodType.MONTH}
+            onClick={() => handlePeriodChange(RateLimitPeriodType.MONTH)}
           />
         </div>
       </div>
