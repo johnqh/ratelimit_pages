@@ -6,18 +6,18 @@
  * Do NOT wrap this component in a Section when consuming it.
  */
 
-import React, { useCallback, useEffect, useMemo } from "react";
-import { Section } from "@sudobility/components";
-import { useRateLimits } from "@sudobility/ratelimit_client";
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { Section } from '@sudobility/components';
+import { useRateLimits } from '@sudobility/ratelimit_client';
 import {
   UsageDashboard,
   TierComparisonTable,
   type UsageBarConfig,
   type TierDisplayData,
-} from "@sudobility/ratelimit-components";
-import { colors } from "@sudobility/design";
-import { cn } from "../lib/cn";
-import type { RateLimitsPageProps } from "../types";
+} from '@sudobility/ratelimit-components';
+import { colors } from '@sudobility/design';
+import { cn } from '../lib/cn';
+import type { RateLimitsPageProps } from '../types';
 
 // =============================================================================
 // RateLimitsPage Component
@@ -36,14 +36,13 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   className,
   testMode = false,
 }) => {
-
   const { config, isLoadingConfig, error, refreshConfig, clearError } =
     useRateLimits(networkClient, baseUrl, testMode);
 
   // Fetch config on mount if autoFetch is enabled
   useEffect(() => {
     if (autoFetch && token) {
-      refreshConfig(token, entitySlug ?? "");
+      refreshConfig(token, entitySlug ?? '');
     }
   }, [autoFetch, token, entitySlug, refreshConfig]);
 
@@ -51,7 +50,7 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   useEffect(() => {
     if (refreshInterval > 0 && token) {
       const intervalId = setInterval(() => {
-        refreshConfig(token, entitySlug ?? "");
+        refreshConfig(token, entitySlug ?? '');
       }, refreshInterval);
       return () => clearInterval(intervalId);
     }
@@ -87,7 +86,7 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   const tiers: TierDisplayData[] = useMemo(() => {
     if (!config) return [];
 
-    return config.tiers.map((tier) => ({
+    return config.tiers.map(tier => ({
       id: tier.entitlement,
       name: tier.displayName,
       hourlyLimit: tier.limits.hourly,
@@ -101,7 +100,7 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   const currentTierName = useMemo(() => {
     if (!config) return undefined;
     const currentTier = config.tiers.find(
-      (t) => t.entitlement === config.currentEntitlement,
+      t => t.entitlement === config.currentEntitlement
     );
     return currentTier?.displayName;
   }, [config]);
@@ -110,22 +109,25 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   const handleRetry = useCallback(() => {
     clearError();
     if (token) {
-      refreshConfig(token, entitySlug ?? "");
+      refreshConfig(token, entitySlug ?? '');
     }
   }, [clearError, token, entitySlug, refreshConfig]);
 
   // Loading state
   if (isLoadingConfig && !config) {
     return (
-      <Section spacing="lg" maxWidth="4xl" className={cn(className)}>
+      <Section spacing='lg' maxWidth='4xl' className={cn(className)}>
         <div
-          role="status"
+          role='status'
           aria-label={labels.loadingText}
           className={`flex items-center justify-center rounded-lg border p-12 ${colors.component.card.default.base} ${colors.component.card.default.dark}`}
         >
-          <div className="flex flex-col items-center gap-3">
-            <div className={`h-8 w-8 animate-spin rounded-full border-4 border-current border-t-transparent ${colors.component.alert.info.icon}`} aria-hidden="true" />
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+          <div className='flex flex-col items-center gap-3'>
+            <div
+              className={`h-8 w-8 animate-spin rounded-full border-4 border-current border-t-transparent ${colors.component.alert.info.icon}`}
+              aria-hidden='true'
+            />
+            <p className='text-sm text-gray-500 dark:text-gray-400'>
               {labels.loadingText}
             </p>
           </div>
@@ -137,9 +139,9 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   // Error state
   if (error && !config) {
     return (
-      <Section spacing="lg" maxWidth="4xl" className={cn(className)}>
+      <Section spacing='lg' maxWidth='4xl' className={cn(className)}>
         <div
-          role="alert"
+          role='alert'
           className={`flex flex-col items-center justify-center gap-4 rounded-lg border p-12 ${colors.component.alert.error.base} ${colors.component.alert.error.dark}`}
         >
           <p className={`text-sm ${colors.component.alert.error.icon}`}>
@@ -163,23 +165,26 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   }
 
   return (
-    <Section spacing="lg" maxWidth="4xl" className={cn(className)}>
+    <Section spacing='lg' maxWidth='4xl' className={cn(className)}>
       {/* Page Title */}
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+      <h2 className='text-2xl font-bold text-gray-900 dark:text-white mb-6'>
         {labels.title}
       </h2>
 
       {/* Error banner (if error but we have stale data) */}
       {error && (
-        <div role="alert" className="rounded-md bg-yellow-50 p-4 dark:bg-yellow-900/20 mb-6">
-          <p className="text-sm text-yellow-800 dark:text-yellow-200">
+        <div
+          role='alert'
+          className='rounded-md bg-yellow-50 p-4 dark:bg-yellow-900/20 mb-6'
+        >
+          <p className='text-sm text-yellow-800 dark:text-yellow-200'>
             {labels.errorText}: {error}
           </p>
         </div>
       )}
 
       {/* Usage Dashboard */}
-      <div className="mb-6" role="region" aria-label={labels.usageTitle}>
+      <div className='mb-6' role='region' aria-label={labels.usageTitle}>
         <UsageDashboard
           usageBars={usageBars}
           currentTierName={currentTierName}
@@ -196,7 +201,7 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
       </div>
 
       {/* Tier Comparison Table */}
-      <div role="region" aria-label={labels.tiersTitle}>
+      <div role='region' aria-label={labels.tiersTitle}>
         <TierComparisonTable
           tiers={tiers}
           labels={{

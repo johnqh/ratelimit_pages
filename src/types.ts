@@ -2,7 +2,7 @@
  * Types for ratelimit-pages
  */
 
-import { RateLimitPeriodType, type NetworkClient } from "@sudobility/types";
+import { RateLimitPeriodType, type NetworkClient } from '@sudobility/types';
 
 // =============================================================================
 // Common Types
@@ -155,7 +155,7 @@ export interface RateLimitHistoryPageProps {
 /**
  * Tab type for the dashboard
  */
-export type RateLimitsDashboardTab = "limits" | "history";
+export type RateLimitsDashboardTab = 'limits' | 'history';
 
 /**
  * Labels for RateLimitsDashboard localization - all strings must be provided

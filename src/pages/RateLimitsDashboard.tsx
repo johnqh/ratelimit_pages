@@ -6,15 +6,15 @@
  * It combines RateLimitsPage and RateLimitHistoryPage into a single component.
  */
 
-import React, { useState } from "react";
-import { colors } from "@sudobility/design";
-import { cn } from "../lib/cn";
-import { RateLimitsPage } from "./RateLimitsPage";
-import { RateLimitHistoryPage } from "./RateLimitHistoryPage";
+import React, { useState } from 'react';
+import { colors } from '@sudobility/design';
+import { cn } from '../lib/cn';
+import { RateLimitsPage } from './RateLimitsPage';
+import { RateLimitHistoryPage } from './RateLimitHistoryPage';
 import type {
   RateLimitsDashboardProps,
   RateLimitsDashboardTab,
-} from "../types";
+} from '../types';
 
 // =============================================================================
 // Tab Button Component
@@ -28,14 +28,14 @@ interface TabButtonProps {
 
 const TabButton: React.FC<TabButtonProps> = ({ label, isActive, onClick }) => (
   <button
-    role="tab"
+    role='tab'
     aria-selected={isActive}
     onClick={onClick}
     className={cn(
-      "py-3 text-sm font-medium transition-colors",
+      'py-3 text-sm font-medium transition-colors',
       isActive
         ? `border-b-2 ${colors.component.alert.info.icon}`
-        : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+        : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
     )}
   >
     {label}
@@ -54,33 +54,38 @@ export const RateLimitsDashboard: React.FC<RateLimitsDashboardProps> = ({
   labels,
   onUpgradeClick,
   upgradeButtonLabel,
-  initialTab = "limits",
+  initialTab = 'limits',
   chartHeight = 350,
   className,
   testMode = false,
 }) => {
-  const [activeTab, setActiveTab] = useState<RateLimitsDashboardTab>(initialTab);
+  const [activeTab, setActiveTab] =
+    useState<RateLimitsDashboardTab>(initialTab);
 
   return (
-    <div className={cn("space-y-6", className)}>
+    <div className={cn('space-y-6', className)}>
       {/* Tab Navigation */}
-      <div className="border-b border-gray-200 dark:border-gray-700">
-        <nav role="tablist" aria-label="Rate limits dashboard" className="-mb-px flex gap-6">
+      <div className='border-b border-gray-200 dark:border-gray-700'>
+        <nav
+          role='tablist'
+          aria-label='Rate limits dashboard'
+          className='-mb-px flex gap-6'
+        >
           <TabButton
             label={labels.currentLimitsTab}
-            isActive={activeTab === "limits"}
-            onClick={() => setActiveTab("limits")}
+            isActive={activeTab === 'limits'}
+            onClick={() => setActiveTab('limits')}
           />
           <TabButton
             label={labels.usageHistoryTab}
-            isActive={activeTab === "history"}
-            onClick={() => setActiveTab("history")}
+            isActive={activeTab === 'history'}
+            onClick={() => setActiveTab('history')}
           />
         </nav>
       </div>
 
       {/* Tab Content */}
-      {activeTab === "limits" && (
+      {activeTab === 'limits' && (
         <RateLimitsPage
           networkClient={networkClient}
           baseUrl={baseUrl}
@@ -94,7 +99,7 @@ export const RateLimitsDashboard: React.FC<RateLimitsDashboardProps> = ({
         />
       )}
 
-      {activeTab === "history" && (
+      {activeTab === 'history' && (
         <RateLimitHistoryPage
           networkClient={networkClient}
           baseUrl={baseUrl}
