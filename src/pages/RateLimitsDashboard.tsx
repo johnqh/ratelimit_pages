@@ -35,7 +35,7 @@ const TabButton: React.FC<TabButtonProps> = ({ label, isActive, onClick }) => (
       'py-3 text-sm font-medium transition-colors',
       isActive
         ? `border-b-2 ${colors.component.alert.info.icon}`
-        : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+        : 'text-muted-foreground hover:text-foreground'
     )}
   >
     {label}
@@ -65,7 +65,7 @@ export const RateLimitsDashboard: React.FC<RateLimitsDashboardProps> = ({
   return (
     <div className={cn('space-y-6', className)}>
       {/* Tab Navigation */}
-      <div className='border-b border-gray-200 dark:border-gray-700'>
+      <div className='border-b border-border'>
         <nav
           role='tablist'
           aria-label='Rate limits dashboard'

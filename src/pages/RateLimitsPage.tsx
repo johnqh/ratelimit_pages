@@ -127,7 +127,7 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
               className={`h-8 w-8 animate-spin rounded-full border-4 border-current border-t-transparent ${colors.component.alert.info.icon}`}
               aria-hidden='true'
             />
-            <p className='text-sm text-gray-500 dark:text-gray-400'>
+            <p className='text-sm text-muted-foreground'>
               {labels.loadingText}
             </p>
           </div>
@@ -167,17 +167,14 @@ export const RateLimitsPage: React.FC<RateLimitsPageProps> = ({
   return (
     <Section spacing='lg' maxWidth='4xl' className={cn(className)}>
       {/* Page Title */}
-      <h2 className='text-2xl font-bold text-gray-900 dark:text-white mb-6'>
+      <h2 className='text-2xl font-bold text-foreground mb-6'>
         {labels.title}
       </h2>
 
       {/* Error banner (if error but we have stale data) */}
       {error && (
-        <div
-          role='alert'
-          className='rounded-md bg-yellow-50 p-4 dark:bg-yellow-900/20 mb-6'
-        >
-          <p className='text-sm text-yellow-800 dark:text-yellow-200'>
+        <div role='alert' className='rounded-md bg-warning/10 p-4 mb-6'>
+          <p className='text-sm text-warning'>
             {labels.errorText}: {error}
           </p>
         </div>
