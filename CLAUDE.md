@@ -1,5 +1,10 @@
 # RateLimit Pages
 
+> **Git policy — never auto-commit or auto-push.** Leave your work in the working tree.
+> Run `git commit`, `git push`, `gh pr create`, or `scripts/push_all.sh` **only when the user
+> explicitly asks in that turn**. Approval for an earlier change does not carry forward, and
+> finishing a task is not permission to commit it.
+
 Self-contained rate limit pages for React applications with usage dashboards and tier comparison.
 
 **npm**: `@sudobility/ratelimit_pages` (public)
@@ -166,3 +171,7 @@ bun run type-check && bun run lint && bun run test && bun run build
 - **Vite library mode build** -- produces ESM + UMD. Build is `tsc && vite build`.
 - **`ratelimit_client` is in `peerDependenciesMeta`** -- it's required but listed in the meta section, not main `peerDependencies`. Check both when debugging dependency issues.
 - **UI components come from `@sudobility/ratelimit-components`** (note the hyphen) -- separate package from this one.
+
+## Git Workflow
+
+- Do not use feature branches for code changes. Always stay on the current branch.
